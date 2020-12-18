@@ -13,7 +13,15 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-  }
+  },
+  days: [{
+    type: [Schema.Types.ObjectId],
+    link: 'Day'
+  }],
+  pleasures: [{
+    type: Schema.Types.ObjectId,
+    link: 'Pleasure'
+  }]
 })
 
 export default mongoose.model('User', UserSchema);

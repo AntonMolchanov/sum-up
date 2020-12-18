@@ -3,12 +3,14 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import config from './config.js';
 import days from './routes/days.route.js';
+import users from './routes/user.route.js'
 
 const app = express();
 
 app.use(json());
 app.use(urlencoded({extended: false}));
 app.use('/days', days);
+app.use('/users', users);
 
 mongoose.connect(config.DB_URL, {
   useNewUrlParser: true,

@@ -3,5 +3,6 @@ export default {
   PORT: process.env.PORT || 8080,
   TOKEN_KEY: {
     key: '123123!'
-  }
+  },
+  SECRET_KEY: 'my therapy 2020'
 }
