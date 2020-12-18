@@ -22,8 +22,9 @@ const saveUser = async (req, res) => {
     
     res.send(savedUser);
   } else {
-    res.json({
-      error: 'User already exists'
+    res.status(409);
+    res.send({
+      message: 'User already exists'
     })
   }
 }
@@ -46,10 +47,12 @@ const loginUser = async (req, res) => {
       })
       res.send(token);
     } else {
-      res.error({message: 'invalid password'})
+      res.status(401);
+      res.send({message: 'invalid password'})
     }
   } else {
-    res.error({message: 'invalid email'})
+    res.status(401);
+    res.send({message: 'invalid email'})
   }
 }
 
