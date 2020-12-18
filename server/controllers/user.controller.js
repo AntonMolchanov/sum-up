@@ -43,8 +43,8 @@ const loginUser = async (req, res) => {
         email: userFromDB.email,
       }
       let token = jwt.sign(payload, config.SECRET_KEY, {
-        // expiresIn: "2 days"
-        expiresIn: 60
+        expiresIn: "2 days"
+        // expiresIn: 60
       })
       res.send(token);
     } else {

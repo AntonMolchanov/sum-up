@@ -8,7 +8,8 @@ const DaySchema = new Schema({
   },
   situations: {
     type: Schema.Types.ObjectId,
-    link: 'Situation'
+    link: 'Situation',
+    default: []
   },
   owner: {
     type: Schema.Types.ObjectId,
