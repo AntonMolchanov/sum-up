@@ -54,10 +54,26 @@ const loginUser = async (req, res) => {
     res.status(401);
     res.send({message: 'invalid email'})
   }
-}
+};
+
+const getProfile = async (req, res) => {
+  const decoded = jwt.verify(req.headers['authorization'], config.SECRET_KEY)
+  
+  const userFromDB = await UserModel.findOne({
+    _id: decoded._id
+  });
+  
+  if(userFromDB) {
+    res.send(userFromDB)
+  } else {
+    res.status(404);
+    req.send({message: 'there is no such user'})
+  }
+};
 
 const UserController = {
   save: saveUser,
-  login: loginUser
+  login: loginUser,
+  getProfile
 }
 export default UserController;

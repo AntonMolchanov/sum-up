@@ -9,6 +9,10 @@ const DaySchema = new Schema({
   situations: {
     type: Schema.Types.ObjectId,
     link: 'Situation'
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    link: 'User'
   }
 })
 
