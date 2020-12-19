@@ -8,20 +8,26 @@ const mapReqDayToNew = (body) => ({
 });
 
 const saveDay = async (req, res) => {
-  const dayFromDB = await DayModel.findOne({date: req.body.date});
+  const searchedDate = new Date(req.body.date);
+  searchedDate.setHours(0, 0, 0, 0);
+  const nextDay = new Date(req.body.date);
+  nextDay.setDate(nextDay.getDate() + 1);
+  nextDay.setHours(0, 0, 0, 0);
+  
+  const dayFromDB = await DayModel.findOne({
+    date: {
+      "$gte": searchedDate,
+      "$lt": nextDay
+    }
+  });
+  
   if (!dayFromDB) {
-    DayModel.create(mapReqDayToNew(req.body), (err, created) => {
-      if (err) {
-        res.status(500);
-        res.send(err);
-      }
-        res.send(created)
-      }
-    );
+    const created = await DayModel.create(mapReqDayToNew(req.body))
+    res.send(created)
   } else {
     res.status(409);
     res.send({
-      message: 'User already exists'
+      message: 'Day already exists or you already created one at the same day'
     })
   }
 };
@@ -30,15 +36,8 @@ const updateDay = async (req, res) => {
   const dayFromDB = await DayModel.findOne({date: req.body.date});
   
   if (dayFromDB) {
-    DayModel.update({...dayFromDB}, {...req.body}, (err, updated) => {
-      if (err) {
-        res.send({
-          message: "couldn't update",
-          err
-        })
-      }
-      res.send(updated);
-    })
+    const updated = await DayModel.updateOne({...dayFromDB}, {...req.body});
+    res.send(updated);
   } else {
     res.status(404);
     res.send({
@@ -46,19 +45,18 @@ const updateDay = async (req, res) => {
     })
   }
 }
+
 const deleteDay = async (req, res) => {
   const dayFromDB = await DayModel.findOne({date: req.body.date});
   
   if (dayFromDB) {
-    DayModel.deleteOne({...dayFromDB}, (err, deleted) => {
-      if (err) {
-        res.send({
-          message: "couldn't delete",
-          err
-        })
-      }
-      res.send(deleted);
-    })
+    const deleted = await DayModel.deleteOne({_id: dayFromDB['_id']});
+    if (deleted.ok > 0) {
+      res.send(dayFromDB);
+    } else {
+      res.status(204);
+      res.send({message: 'something went wrong'});
+    }
   } else {
     res.status(404);
     res.send({
