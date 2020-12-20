@@ -9,7 +9,8 @@ const SituationSchema = new Schema({
   reasons: [String],
   positives: [String],
   dayWhen: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    link: 'Day',
     required: true
   },
   rationals: [String],

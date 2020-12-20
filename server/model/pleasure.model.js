@@ -6,7 +6,11 @@ const PleasureSchema = new Schema({
     type: String,
     required: true
   },
-  description: String
+  description: String,
+  dayWhen: {
+    type: Schema.Types.ObjectId,
+    link: 'Day'
+  }
 })
 
 export default mongoose.model('Pleasure', PleasureSchema);

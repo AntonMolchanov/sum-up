@@ -11,9 +11,15 @@ const DaySchema = new Schema({
     link: 'Situation',
     default: []
   }],
+  pleasures: [{
+    type: Schema.Types.ObjectId,
+    link: 'Pleasure',
+    default: []
+  }],
   owner: {
     type: Schema.Types.ObjectId,
-    link: 'User'
+    link: 'User',
+    required: true
   }
 })
 
