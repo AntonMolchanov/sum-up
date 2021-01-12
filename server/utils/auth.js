@@ -2,8 +2,13 @@ import jwt from "jsonwebtoken";
 import UserModel from '../model/user.model.js';
 import config from "../config.js";
 
+const freeOfAuth = [
+  '/users/login',
+  '/users'
+]
+
 export default async (req, res, next) => {
-  if (req.baseUrl !== '/users/login') {
+  if (!freeOfAuth.some(url => url === req.baseUrl)) {
     if (req.headers['authorization']) {
       jwt.verify(req.headers['authorization'], config.SECRET_KEY, {}, async (err, decoded) => {
         if (err) {

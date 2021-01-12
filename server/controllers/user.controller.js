@@ -13,19 +13,27 @@ const mapReqUserToNew = (body) => ({
 });
 
 const saveUser = async (req, res) => {
-  const userFromDB = await UserModel.findOne({email: req.body.email});
-  if (!userFromDB) {
-    const newUser = mapReqUserToNew(req.body);
-    newUser.password = await bcrypt.hash(newUser.password, 10);
-    
-    const savedUser = await UserModel.create(newUser);
-    
-    res.send(savedUser);
-  } else {
-    res.status(409);
+  const {name, email, password} = res.body;
+  if (!name || !email || !password) {
+    res.status(422);
     res.send({
-      message: 'User already exists'
+      message: "Invalid data. One of the required properties is missing: name, email, password."
     })
+  } else {
+    const userFromDB = await UserModel.findOne({email});
+    if (!userFromDB) {
+      const newUser = mapReqUserToNew({name, email, password});
+      newUser.password = await bcrypt.hash(newUser.password, 10);
+      
+      const savedUser = await UserModel.create(newUser);
+      
+      res.send(savedUser);
+    } else {
+      res.status(409);
+      res.send({
+        message: 'User already exists'
+      })
+    }
   }
 }
 
@@ -64,7 +72,7 @@ const getProfile = async (req, res) => {
     _id: decoded._id
   });
   
-  if(userFromDB) {
+  if (userFromDB) {
     res.send(userFromDB)
   } else {
     res.status(404);
