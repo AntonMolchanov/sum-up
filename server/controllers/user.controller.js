@@ -56,11 +56,11 @@ const loginUser = async (req, res) => {
       })
       res.send(token);
     } else {
-      res.status(401);
+      res.status(203);
       res.send({message: 'invalid password'})
     }
   } else {
-    res.status(401);
+    res.status(203);
     res.send({message: 'invalid email'})
   }
 };
