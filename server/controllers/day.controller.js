@@ -7,6 +7,16 @@ const mapReqDayToNew = (body) => ({
   owner: body.owner
 });
 
+const getAll = async (req, res) => {
+  const allDays = await DayModel.find({});
+  if (allDays) {
+    res.send(allDays);
+  } else {
+    res.status(404);
+    res.send({message: 'smth went wrong'})
+  }
+}
+
 const saveDay = async (req, res) => {
   const searchedDate = new Date(req.body.date);
   searchedDate.setHours(0, 0, 0, 0);
@@ -66,6 +76,7 @@ const deleteDay = async (req, res) => {
 }
 
 const DayController = {
+  getAll,
   save: saveDay,
   update: updateDay,
   delete: deleteDay

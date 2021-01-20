@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-const getDays = async () => {
-
+const getDays = async (token) => {
+  return await axios
+    .get('/days', {
+      headers: {
+        'authorization': token
+      }
+    })
 }
 
 const login = async (user) => {
