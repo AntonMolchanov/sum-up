@@ -6,9 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import MenuIcon from '@material-ui/icons/Menu';
 import {makeStyles} from "@material-ui/core";
-import Link from "@material-ui/core/Link";
+import {default as MaterialLink} from "@material-ui/core/Link";
 import {useDispatch, useSelector} from "react-redux";
 import {userActions, userSelectors} from "../redux/user";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -17,6 +18,17 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
       listStyle: 'none',
     },
+  },
+  logo: {
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
+    transition: 'color 0.3s',
+    '&:visited': {
+      color: theme.palette.text.primary
+    },
+    '&:hover': {
+      color: theme.palette.text.hint
+    }
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
@@ -51,15 +63,15 @@ const Header = () => {
     <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          Company name
+          <Link to='/' className={classes.logo}>SUM-UP</Link>
         </Typography>
         <nav>
-          <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-            Days
-          </Link>
-          <Link variant="button" color="textPrimary" href="#" className={classes.link}>
+          <MaterialLink variant="button" color="textPrimary" to="/situations" component={Link} className={classes.link}>
+            Situations
+          </MaterialLink>
+          <MaterialLink variant="button" color="textPrimary" to="/pleasures" component={Link} className={classes.link}>
             Pleasures
-          </Link>
+          </MaterialLink>
         </nav>
         {btn}
       </Toolbar>
