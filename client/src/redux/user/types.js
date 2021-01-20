@@ -1,0 +1,9 @@
+const SAVE_USER = "SAVE_USER";
+const ERROR_USER = "ERROR_USER";
+const LOGOUT_USER = 'LOGOUT_USER';
+
+export default {
+  SAVE_USER,
+  ERROR_USER,
+  LOGOUT_USER
+}
