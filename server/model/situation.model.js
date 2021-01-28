@@ -6,15 +6,15 @@ const SituationSchema = new Schema({
     type: String,
     required: true
   },
-  reasons: [String],
-  positives: [String],
-  dayWhen: {
+  reasons: String,
+  positives: String,
+  day: {
     type: Schema.Types.ObjectId,
     link: 'Day',
     required: true
   },
-  rationals: [String],
-  subconscious: [String]
+  rationals: String,
+  subconscious: String
 })
 
 export default mongoose.model('Situation', SituationSchema);

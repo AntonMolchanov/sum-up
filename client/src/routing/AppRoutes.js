@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Page404 from "./Page404";
+import NewSituation from "../pages/NewSituation";
 
 const AppRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
       <ProtectedRoute path='/login' component={Login}/>
       
       <Route path='/register' component={Register}/>
+      <Route path='/new' component={NewSituation}/>
       
       <Route path='*' render={Page404}/>
     </Switch>

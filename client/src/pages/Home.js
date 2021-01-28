@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {daysActions, daysSelectors} from "../redux/days";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
@@ -12,11 +13,17 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Home = () => {
+const Home = ({history}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const days = useSelector(daysSelectors.all);
-  console.log(days);
+  
+  const handleCreateSituation = (e) => {
+    e.preventDefault();
+    
+    history.push('/new');
+  }
+  
   useEffect(() => {
     dispatch(daysActions.getAll());
   }, []);
@@ -30,7 +37,8 @@ const Home = () => {
         <Typography color="textSecondary" paragraph>
           Here you can find all of the days you created. To take a closer look click a 'details' button.
         </Typography>
-        
+  
+        <Button variant="outlined" onClick={handleCreateSituation}>+</Button>
         
       </Container>
     </>
