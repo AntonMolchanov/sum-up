@@ -1,20 +1,16 @@
-import mongoose from  'mongoose';
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const SituationSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   reasons: String,
   positives: String,
-  day: {
-    type: Schema.Types.ObjectId,
-    link: 'Day',
-    required: true
-  },
+  day: Date,
   rationals: String,
-  subconscious: String
-})
+  subconscious: String,
+});
 
-export default mongoose.model('Situation', SituationSchema);
+export default mongoose.model("Situation", SituationSchema);
