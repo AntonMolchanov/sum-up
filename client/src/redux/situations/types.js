@@ -1,0 +1,11 @@
+const FETCH_SITUATIONS = "SAVE_SITUATIONS";
+const SAVE_SITUATION = "SAVE_SITUATION";
+const ERROR_SITUATION = "ERROR_SITUATION";
+
+const allActions = {
+  FETCH_SITUATIONS,
+  SAVE_SITUATION,
+  ERROR_SITUATION,
+};
+
+export default allActions;
