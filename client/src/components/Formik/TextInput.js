@@ -1,16 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import {ErrorMessage, Form} from "formik";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 
-const TextInput = ({form, field, ...rest}) => {
-  const {name} = field;
-  
+const TextInput = ({ form, field, ...rest }) => {
   return (
     <>
-      <TextField
-        {...field} {...rest}
-      />
+      <TextField {...field} {...rest} />
     </>
   );
 };

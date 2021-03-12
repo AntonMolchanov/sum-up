@@ -10,8 +10,19 @@ const getAll = () => (dispatch, getState) => {
   });
 };
 
+const save = (newSituation, setSubmitting) => async (dispatch, getState) => {
+  const res = await API.save("/situations", getState().user, newSituation);
+  dispatch({
+    type: types.SAVE_SITUATION,
+    payload: res.data,
+  });
+  setSubmitting(false);
+  getAll();
+};
+
 const allActions = {
   getAll,
+  save,
 };
 
 export default allActions;

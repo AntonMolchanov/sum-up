@@ -1,18 +1,33 @@
 import types from "./types";
 
-const initialState = [];
+const initialState = {
+  items: [],
+  error: null,
+};
 
-const daysReducer = (currentState = initialState, action) => {
+const situationsReducer = (currentState = initialState, action) => {
   switch (action.type) {
     case types.FETCH_SITUATIONS:
-      return action.payload;
+      return {
+        ...currentState,
+        items: action.payload,
+      };
     case types.SAVE_SITUATION:
-      return action.payload;
+      const newItems = [...currentState.items];
+      newItems.push(action.payload);
+
+      return {
+        ...currentState,
+        items: newItems,
+      };
     case types.ERROR_SITUATONS:
-      return action.payload;
+      return {
+        ...currentState,
+        error: action.payload,
+      };
     default:
       return currentState;
   }
 };
 
-export default daysReducer;
+export default situationsReducer;

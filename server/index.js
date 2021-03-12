@@ -13,9 +13,9 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use("*", auth);
 
-app.use("/days", days);
-app.use("/situations", situations);
-app.use("/users", users);
+app.use("/api/days", days);
+app.use("/api/situations", situations);
+app.use("/api/users", users);
 
 mongoose
   .connect(config.DB_URL, {

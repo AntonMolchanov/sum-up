@@ -3,20 +3,28 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { situationsActions } from "../redux/situations";
+import { situationsActions, situationsSelectors } from "../redux/situations";
+import SituationCard from "../components/SituationCard/SituationCard";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 4, 6),
   },
+  list: {
+    marginTop: "20px",
+  },
 }));
 
 const Home = ({ history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const situations = useSelector(situationsActions.all);
+  const situations = useSelector(situationsSelectors.all);
+  const allSituations = situations.map((situation) => (
+    <SituationCard key={situation._id} card={situation} />
+  ));
 
   const handleCreateSituation = (e) => {
     e.preventDefault();
@@ -26,6 +34,7 @@ const Home = ({ history }) => {
 
   useEffect(() => {
     dispatch(situationsActions.getAll());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -47,6 +56,10 @@ const Home = ({ history }) => {
         <Button variant="outlined" onClick={handleCreateSituation}>
           +
         </Button>
+
+        <Grid container spacing={4} className={classes.list}>
+          {allSituations}
+        </Grid>
       </Container>
     </>
   );

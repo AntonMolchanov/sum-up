@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const get = async (breakpoint, token) => {
-  return await axios.get(breakpoint, {
+  return await axios.get("/api" + breakpoint, {
     headers: {
       authorization: token,
     },
@@ -9,30 +9,30 @@ const get = async (breakpoint, token) => {
 };
 
 const getDays = async (token) => {
-  return await axios.get("/days", {
+  return await axios.get("api/days", {
     headers: {
       authorization: token,
     },
   });
 };
 
-const save = async (breakpoint, token, newSituation) => {
-  return await axios.post(breakpoint, {
+const save = async (breakpoint, token, newItem) => {
+  return await axios.post("/api" + breakpoint, newItem, {
     headers: {
       authorization: token,
-      body: { ...newSituation },
     },
   });
 };
 
 const login = async (user) => {
-  return await axios.post("/users/login", user);
+  return await axios.post("api/users/login", user);
 };
 
 const allAPI = {
   login,
   get,
   getDays,
+  save,
 };
 
 export default allAPI;
