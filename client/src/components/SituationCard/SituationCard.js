@@ -7,9 +7,12 @@ import Typography from "@material-ui/core/Typography";
 import useStyles from "./styles";
 import dataPrettifyer from "../../utils/dataPrettifyer";
 import Grid from "@material-ui/core/Grid";
+import { useDispatch } from "react-redux";
+import { situationsActions } from "../../redux/situations";
 
 const SituationCard = ({ card }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { title, day, reasons, positives, rationals, subconscious } = card;
   const prettyDay = dataPrettifyer(day);
   const [isOpened, setIsOpened] = useState(false);
@@ -62,7 +65,14 @@ const SituationCard = ({ card }) => {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={() => setIsOpened(!isOpened)}>
-            Learn More
+            {isOpened ? "Show Less" : "Show More"}
+          </Button>
+          <Button
+            size="small"
+            color="secondary"
+            onClick={() => dispatch(situationsActions.delete(card._id))}
+          >
+            Delete
           </Button>
         </CardActions>
       </Card>

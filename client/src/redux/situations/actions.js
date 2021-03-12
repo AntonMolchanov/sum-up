@@ -17,12 +17,22 @@ const save = (newSituation, setSubmitting) => async (dispatch, getState) => {
     payload: res.data,
   });
   setSubmitting(false);
-  getAll();
+  dispatch(getAll());
+};
+
+const deleteOne = (id) => async (dispatch, getState) => {
+  const res = await API.deleteSituation(id, getState().user);
+  dispatch({
+    type: types.DELETE_SITUATION,
+    payload: res.data,
+  });
+  dispatch(getAll());
 };
 
 const allActions = {
   getAll,
   save,
+  delete: deleteOne,
 };
 
 export default allActions;
