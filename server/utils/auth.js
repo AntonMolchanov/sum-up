@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import UserModel from "../model/user.model.js";
 import config from "../config.js";
 
-const freeOfAuth = ["/api/users/login", "/api/users"];
+const freeOfAuth = ["/api/users/login", "/api/users", "/public"];
 
 export default async (req, res, next) => {
   if (!freeOfAuth.some((url) => url === req.baseUrl)) {
