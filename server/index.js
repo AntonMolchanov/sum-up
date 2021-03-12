@@ -10,12 +10,12 @@ const app = express();
 
 app.use(json());
 app.use(urlencoded({ extended: false }));
+app.use(express.static(__dirname + "/public/"));
 app.use("*", auth);
 
 app.use("/api/days", days);
 app.use("/api/situations", situations);
 app.use("/api/users", users);
-app.use(express.static(__dirname + "/public/"));
 
 mongoose
   .connect(config.DB_URL, {
