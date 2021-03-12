@@ -4,3 +4,5 @@ node_modules/**/*
 *.iml
 .DS_Store
 .eslintcache
+client/.eslintcache
+server/.eslintcache
