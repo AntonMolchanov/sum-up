@@ -1,6 +1,5 @@
 import express, { json, urlencoded } from "express";
 import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
 import config from "./config.js";
 import days from "./routes/days.route.js";
 import users from "./routes/user.route.js";
@@ -16,7 +15,7 @@ app.use("*", auth);
 app.use("/api/days", days);
 app.use("/api/situations", situations);
 app.use("/api/users", users);
-app.use(express.static(__dirname + "/public/"));
+app.use(express.static(config.__dirname + "/public/"));
 
 mongoose
   .connect(config.DB_URL, {
