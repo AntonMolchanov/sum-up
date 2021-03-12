@@ -11,7 +11,7 @@ const app = express();
 
 app.use(json());
 app.use(urlencoded({ extended: false }));
-app.use(express.static(path.resolve(path.dirname()) + "/public/"));
+app.use(express.static(path.resolve(path.dirname("")) + "/public/"));
 app.use("*", auth);
 
 app.use("/api/days", days);
