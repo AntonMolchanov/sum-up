@@ -1,6 +1,7 @@
 import UserModel from "../model/user.model.js";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import authHelpers, { getToken } from "../utils/authHelpers.js";
 import config from "../config.js";
 
 const mapReqUserToNew = (body) => ({
@@ -10,19 +11,6 @@ const mapReqUserToNew = (body) => ({
   days: [],
   pleasures: [],
 });
-
-const getToken = (userFromDB) => {
-  const payload = {
-    _id: userFromDB._id,
-    name: userFromDB.name,
-    email: userFromDB.email,
-  };
-  let token = jwt.sign(payload, config.SECRET_KEY, {
-    expiresIn: "2 days",
-    // expiresIn: 60
-  });
-  return token;
-};
 
 const saveUser = async (req, res) => {
   const { name = "Unnamed user", email, password } = req.body;
@@ -64,7 +52,10 @@ const loginUser = async (req, res) => {
       userFromDB.password
     );
     if (isValidPassword) {
-      res.send(getToken(userFromDB));
+      res.send({
+        token: getToken(userFromDB),
+        data: userFromDB,
+      });
     } else {
       res.status(203);
       res.send({ message: "invalid password" });
@@ -76,7 +67,7 @@ const loginUser = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  const decoded = jwt.verify(req.headers["authorization"], config.SECRET_KEY);
+  const decoded = authHelpers.decode(req.headers["authorization"]);
 
   const userFromDB = await UserModel.findOne({
     _id: decoded._id,

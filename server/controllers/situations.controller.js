@@ -4,18 +4,17 @@ import config from "../config.js";
 import DayModel from "../model/day.model.js";
 import SituationsModel from "../model/situation.model.js";
 import UserModel from "../model/user.model.js";
+import authHelpers from "../utils/authHelpers.js";
 
-const mapBodyToSituation = (body) => ({
-  title: body.situationName,
-  day: new Date(body.day),
-  reasons: body.reasons,
-  positives: body.positives,
-  rationals: body.rationals,
-  subconscious: body.subconscious,
+const mapBodyToSituation = ({ situationName, day, ...rest }) => ({
+  title: situationName,
+  ...rest,
+  day: new Date(day),
 });
 
 const getAll = async (req, res) => {
-  const allSituations = await SituationsModel.find({});
+  const { _id } = authHelpers.decode(req.headers["authorization"]);
+  const allSituations = await SituationsModel.find({ author: _id });
   if (allSituations) {
     res.send(allSituations);
   } else {

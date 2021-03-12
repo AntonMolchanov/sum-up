@@ -1,9 +1,17 @@
-const selectIsAuth = currentStore => !!currentStore.user && typeof currentStore.user === 'string';
-const selectUser = currentStore => currentStore.user;
-const selectError = currentStore => currentStore.user && currentStore.user.message;
+const selectIsAuth = (currentStore) =>
+  !!currentStore.user &&
+  !!currentStore.user.token &&
+  typeof currentStore.user.token === "string";
+const selectUser = (currentStore) => {
+  return currentStore.user.data;
+};
+const selectError = (currentStore) =>
+  currentStore.user && currentStore.user.message;
 
-export default {
+const userSelectors = {
   isAuth: selectIsAuth,
   user: selectUser,
   error: selectError,
-}
+};
+
+export default userSelectors;

@@ -8,10 +8,8 @@ const userReducer = (currentState = initialState, action) => {
       return action.payload;
     case types.ERROR_USER:
       return action.payload;
-    case types.LOGOUT_USER:
-      return null;
     default:
-      return currentState
+      return currentState;
   }
 };
 

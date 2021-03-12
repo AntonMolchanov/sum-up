@@ -40,9 +40,12 @@ const NewSituation = ({ history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const error = useSelector(userSelectors.error);
+  const user = useSelector(userSelectors.user);
 
   const handleCreate = async (form, helpers) => {
     const { setSubmitting, resetForm } = helpers;
+    form.author = user._id;
+
     try {
       await dispatch(situationsActions.save(form, setSubmitting));
       history.push("/");

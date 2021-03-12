@@ -16,9 +16,8 @@ export default async (req, res, next) => {
             res.status(403);
             res.send({ message: "permission denied" });
           }
-          const { name, email } = decoded;
+          const { email } = decoded;
           const userFromDB = await UserModel.findOne({
-            name,
             email,
           });
 

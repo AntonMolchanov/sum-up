@@ -1,5 +1,5 @@
-import mongoose from  'mongoose';
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   name: {
@@ -14,14 +14,18 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  days: [{
-    type: [Schema.Types.ObjectId],
-    link: 'Day'
-  }],
-  pleasures: [{
-    type: Schema.Types.ObjectId,
-    link: 'Pleasure'
-  }]
-})
+  situations: [
+    {
+      type: [Schema.Types.ObjectId],
+      link: "Situation",
+    },
+  ],
+  pleasures: [
+    {
+      type: Schema.Types.ObjectId,
+      link: "Pleasure",
+    },
+  ],
+});
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model("User", UserSchema);
