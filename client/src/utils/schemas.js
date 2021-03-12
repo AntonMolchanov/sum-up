@@ -13,11 +13,6 @@ const loginSchema = yup.object().shape({
 });
 
 const registerSchema = yup.object().shape({
-  name: yup
-    .string("Value must be a string")
-    .min(3, "Minimal length is 3 characters")
-    .required("This value is required"),
-
   email: yup
     .string("Value must be a string")
     .email("It should be a valid email")
