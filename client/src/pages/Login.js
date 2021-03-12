@@ -10,7 +10,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import schemas from "../utils/schemas";
 import TextInput from "../components/Formik/TextInput";
 import Error from "../components/Formik/Error";
@@ -80,7 +80,6 @@ export default function Login() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
               />
               {formikProps.touched.email && (
                 <Error name="email" classes={classes.error} />

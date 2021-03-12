@@ -16,7 +16,7 @@ const AppRoutes = () => {
       <ProtectedRoute path="/new" component={NewSituation} />
       <ProtectedRoute path="/pleasures" component={UnderConstruction} />
 
-      <Route path="/register" exact component={Register} />
+      <ProtectedRoute path="/register" exact component={Register} />
 
       <Route path="*" render={Page404} />
     </Switch>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Container } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { Field, Form, Formik } from "formik";
 import schemas from "../utils/schemas";
@@ -9,17 +8,16 @@ import Error from "../components/Formik/Error";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { default as MaterialLink } from "@material-ui/core/Link";
-import { userActions, userSelectors } from "../redux/user";
+import { userActions } from "../redux/user";
 import { useStyles } from "./Login";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const error = useSelector(userSelectors.error);
   const handleSingIn = async (form, { setSubmitting }) => {
-    dispatch(userActions.saveUser(form, setSubmitting));
+    dispatch(userActions.register(form, setSubmitting, history.push));
   };
 
   return (
