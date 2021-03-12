@@ -7,5 +7,4 @@ export default {
     key: "123123!",
   },
   SECRET_KEY: "my therapy 2020",
-  __dirname: process.env.PWD,
 };
