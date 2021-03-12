@@ -1,12 +1,13 @@
 {
   "name": "sum-up",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the app for making a diary in unussual format. Whole idea is to create situations and analise them while writing.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm start --prefix server",
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && rm -rf server/public/* && cp -a client/build/. server/public/"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nick Yamnyk",
   "license": "ISC"
 }
