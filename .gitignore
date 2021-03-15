@@ -6,3 +6,5 @@ node_modules/**/*
 .eslintcache
 client/.eslintcache
 server/.eslintcache
+client/.DS_Store
+server/.DS_Store

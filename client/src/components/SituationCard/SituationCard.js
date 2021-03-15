@@ -29,7 +29,9 @@ const SituationCard = ({ card }) => {
             {prettyDay}
           </Typography>
           <Typography variant="h5" component="h2" className={classes.title}>
-            {title}
+            {title.length > 10
+              ? title.split("").splice(15).join("") + "..."
+              : title}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
             {reasons}
