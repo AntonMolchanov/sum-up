@@ -16,6 +16,11 @@ const SituationCard = ({ card }) => {
   const { title, day, reasons, positives, rationals, subconscious } = card;
   const prettyDay = dataPrettifyer(day);
   const [isOpened, setIsOpened] = useState(false);
+  const titleMaker = (title) => {
+    if (isOpened || title.length <= 15) return title;
+
+    return title.split("").splice(15).join("") + "...";
+  };
 
   return (
     <Grid item xs={12} sm={6} md={isOpened ? 12 : 4}>
@@ -29,9 +34,7 @@ const SituationCard = ({ card }) => {
             {prettyDay}
           </Typography>
           <Typography variant="h5" component="h2" className={classes.title}>
-            {title.length > 10
-              ? title.split("").splice(15).join("") + "..."
-              : title}
+            {titleMaker(title)}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
             {reasons}
