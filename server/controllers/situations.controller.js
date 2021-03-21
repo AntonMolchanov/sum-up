@@ -14,7 +14,9 @@ const mapBodyToSituation = ({ situationName, day, ...rest }) => ({
 
 const getAll = async (req, res) => {
   const { _id } = authHelpers.decode(req.headers["authorization"]);
-  const allSituations = await SituationsModel.find({ author: _id });
+  const allSituations = await SituationsModel.find({ author: _id }).sort({
+    day: -1,
+  });
   if (allSituations) {
     res.send(allSituations);
   } else {
