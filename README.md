@@ -36,7 +36,7 @@ Each Pleasure contains:
 Once you completed the list of pleasures, page is ready to implement daily _checklist feature_ in it.  
 
 The schema of the page is looks like [that](./pleasures.png)
-But you should use Material UI components to implement it.
+But you should use Material UI components only to implement it.
 
 X axis on the top - represents dates of the last week from Monday to Sunday. 
 Y axis on the left - represents pleasures list. When user hover a particular Pleasure for 2-3 seconds - show a tooltip with Pleasure's description.
