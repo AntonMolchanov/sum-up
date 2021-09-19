@@ -6,11 +6,6 @@ const DaySchema = new Schema({
     type: Date,
     required: true
   },
-  situations: [{
-    type: Schema.Types.ObjectId,
-    link: 'Situation',
-    default: []
-  }],
   pleasures: [{
     type: Schema.Types.ObjectId,
     link: 'Pleasure',

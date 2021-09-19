@@ -8,6 +8,11 @@ const PleasureSchema = new Schema({
     required: true
   },
   description: String,
+  owner: {
+    type: Schema.Types.ObjectId,
+    link: 'User',
+    required: true
+  }
 })
 
 export default mongoose.model('Pleasure', PleasureSchema);

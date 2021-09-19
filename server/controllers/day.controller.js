@@ -1,16 +1,12 @@
 import DayModel from '../model/day.model.js';
-
-
-const mapReqDayToNew = (body) => ({
-  date: body.date,
-  situations: body.situations,
-  owner: body.owner
-});
+import {decode} from "../utils/authHelpers";
 
 const getAll = async (req, res) => {
-  const allDays = await DayModel.find({});
+  const {_id: userId} = decode(req.headers["authorization"])
+  const allDays = await DayModel.find({owner: userId});
+  
   if (allDays) {
-    res.send(allDays);
+    res.send(allDays.map(({pleasures, date}) => ({pleasures: pleasures.map(p => p.title), date})));
   } else {
     res.status(404);
     res.send({message: 'smth went wrong'})
@@ -18,6 +14,7 @@ const getAll = async (req, res) => {
 }
 
 const saveDay = async (req, res) => {
+  const {_id: userId} = decode(req.headers["authorization"])
   const searchedDate = new Date(req.body.date);
   searchedDate.setHours(0, 0, 0, 0);
   const nextDay = new Date(req.body.date);
@@ -32,34 +29,37 @@ const saveDay = async (req, res) => {
   });
   
   if (!dayFromDB) {
-    const created = await DayModel.create(mapReqDayToNew(req.body))
+    const created = await DayModel.create({...req.body, owner: userId})
     res.send(created)
   } else {
     res.status(409);
     res.send({
-      message: 'Day already exists or you already created one at the same day'
+      message: 'Day already exists'
     })
   }
 };
 
 const updateDay = async (req, res) => {
+  const {_id: userId} = decode(req.headers["authorization"])
   const dayFromDB = await DayModel.findOne({date: req.body.date});
   
-  if (dayFromDB) {
-    const updated = await DayModel.updateOne({...dayFromDB}, {...req.body});
+  if (dayFromDB && dayFromDB.owner === userId) {
+    const {title: updatedTitle, description: updatedDescription} = req.body
+    const updated = await DayModel.updateOne({...dayFromDB}, {title: updatedTitle, description: updatedDescription});
     res.send(updated);
   } else {
     res.status(404);
     res.send({
-      message: 'day not found'
+      message: 'Day not found'
     })
   }
 }
 
 const deleteDay = async (req, res) => {
-  const dayFromDB = await DayModel.findOne({date: req.body.date});
+  const {_id: userId} = decode(req.headers["authorization"])
+  const dayFromDB = await DayModel.findOne({_id: req.params.id});
   
-  if (dayFromDB) {
+  if (dayFromDB && dayFromDB.owner === userId) {
     const deleted = await DayModel.deleteOne({_id: dayFromDB['_id']});
     if (deleted.ok > 0) {
       res.send(dayFromDB);
