@@ -90,3 +90,13 @@ To make PUT request you would need to send request body with updated properties 
 To make DELETE request you would need to pass an ID of the entity you want to delete. 
 
 It's easy, let's say I want to delete Pleasure with id `ksoiwe53oo34o`, so I would need to send DELETE request with URL `/api/pleasures/ksoiwe53oo34o` 
+
+### OPTIONAL TASK 
+If you try to register a user you would face with the issue. If user succesfully registered - nothing changes on the page. No redirection, no form reset, but user creds are successfully saved in DB and server responded. 
+
+So the optional task is to fix this unexpected behaviour and make redirection to `/login` page after successful registration.  
+
+## Test task submission
+1) Make a fork of out repo into your profile
+2) Make your changes to your
+3) Send us a link to your deployed application instance
