@@ -1,5 +1,5 @@
 import DayModel from '../model/day.model.js';
-import {decode} from "../utils/authHelpers";
+import {decode} from "../utils/authHelpers.js";
 
 const getAll = async (req, res) => {
   const {_id: userId} = decode(req.headers["authorization"])

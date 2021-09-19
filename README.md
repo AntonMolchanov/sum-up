@@ -58,6 +58,11 @@ Each **_Pleasure_** entity contains following properties:
 
 #### To send requests to server, make sure you passed `authorization` header with the token as a value
 
+## Server URL - `/api/:entityName`
+So if you want to send requests related to Days - use `/api/days` endpoint
+
+All Pleasures related requests would be sent to `/api/pleasures` endpoint
+
 #### **`GET`**
 
 **_Returns_** an Array with entities from DB of user you mentioned in authorization token

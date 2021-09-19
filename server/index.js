@@ -1,11 +1,12 @@
 import express, { json, urlencoded } from "express";
+import path from "path";
 import mongoose from "mongoose";
+
 import config from "./config.js";
 import days from "./routes/days.route.js";
 import users from "./routes/user.route.js";
 import situations from "./routes/situations.route.js";
 import auth from "./utils/auth.js";
-import path from "path";
 
 const app = express();
 

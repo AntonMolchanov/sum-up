@@ -1,4 +1,4 @@
-import {decode} from "../utils/authHelpers";
+import {decode} from "../utils/authHelpers.js";
 import PleasureModel from "../model/pleasure.model.js";
 
 
