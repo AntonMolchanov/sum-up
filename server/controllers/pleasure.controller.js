@@ -1,8 +1,9 @@
 import {decode} from "../utils/authHelpers.js";
 import PleasureModel from "../model/pleasure.model.js";
+// import {log} from "nodemon/lib/utils";
 
 
-const get = async (req, res) => {
+const getAll = async (req, res) => {
   const {_id: userId} = decode(req.headers["authorization"])
   const allPleasures = await PleasureModel.find({owner: userId});
   
@@ -20,9 +21,10 @@ const save = async (req, res) => {
   const pleasureFromDB = await PleasureModel.find({owner: userId, title: req.title})
   
   if (!pleasureFromDB) {
-    const saved = await PleasureModel.save(pleasureToSave)
+    const saved = await PleasureModel.create(pleasureToSave)
     res.status(200).send(saved)
-  } else {
+  }
+  else {
     res.status(409);
     res.send({
       message: 'Pleasure already exists'
@@ -70,7 +72,7 @@ const deleteOne = async (req, res) => {
 
 
 const PleasuresController = {
-  get,
+  getAll,
   save,
   update,
   delete: deleteOne

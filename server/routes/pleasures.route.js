@@ -1,11 +1,11 @@
 import express from "express";
 import PleasuresController from "../controllers/pleasure.controller.js";
 
-const dayRoutes = express.Router();
+const pleasuresRoutes = express.Router();
 
-dayRoutes.get("/:owner", PleasuresController.getAll);
-dayRoutes.post("/", PleasuresController.save);
-dayRoutes.put("/", PleasuresController.update);
-dayRoutes.delete("/:id", PleasuresController.delete);
+pleasuresRoutes.get("/:owner", PleasuresController.getAll);
+pleasuresRoutes.post("/", PleasuresController.save);
+pleasuresRoutes.put("/", PleasuresController.update);
+pleasuresRoutes.delete("/:id", PleasuresController.delete);
 
-export default dayRoutes;
+export default pleasuresRoutes;
