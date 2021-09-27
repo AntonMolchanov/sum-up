@@ -1,7 +1,6 @@
 import React from 'react';
 import Container from "@material-ui/core/Container";
 import {Field, Form, Formik} from "formik";
-import schemas from "../utils/schemas";
 import TextInput from "../components/Formik/TextInput";
 import Error from "../components/Formik/Error";
 import Button from "@material-ui/core/Button";
@@ -9,7 +8,8 @@ import {makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {userSelectors} from "../redux/user";
 import {useHistory} from "react-router-dom";
-import pleasureActions from "../redux/pleasures/actions";
+import {pleasureOperations} from "../redux/pleasures";
+import schemas from './../utils/schemas'
 
 const useStyles = makeStyles((theme) => ({
     heroContent: {
@@ -41,14 +41,15 @@ function NewPleasure(props) {
     const error = useSelector(userSelectors.error);
     const history = useHistory()
     const user = useSelector(userSelectors.user);
-     const dispatch = useDispatch()
+    const dispatch = useDispatch()
+
 
     const handleCreatePleasure = async (form, helpers) => {
         const { setSubmitting, resetForm } = helpers;
         form.author = user._id;
 
         try {
-           await dispatch(pleasureActions.save(form, setSubmitting));
+            await dispatch(pleasureOperations.savePleasure(form,setSubmitting));
             history.push("/pleasures");
         } catch (e) {
             /** TODO:
@@ -61,11 +62,12 @@ function NewPleasure(props) {
             resetForm();
         }
     };
+
     return (
         <Container className={classes.heroContent}>
             <Formik
                 initialValues={{
-                    pleasureName: "",
+                    title: "",
                     description: ""
                 }}
                 validationSchema={schemas.createPleasure}
@@ -81,12 +83,12 @@ function NewPleasure(props) {
                             multiline
                             // required
                             fullWidth
-                            id="pleasureName"
-                            label="Pleasure"
-                            name="pleasureName"
+                            id="title"
+                            label="title"
+                            name="title"
                         />
-                        {formikProps.touched.pleasureName && (
-                            <Error name="pleasureName" classes={classes.error} />
+                        {formikProps.touched.title && (
+                            <Error name="title" classes={classes.error}/>
                         )}
                         <Field
                             component={TextInput}
@@ -100,7 +102,7 @@ function NewPleasure(props) {
                             name="description"
                         />
                         {formikProps.touched.description && (
-                            <Error name="description" classes={classes.error} />
+                            <Error name="description" classes={classes.error}/>
                         )}
                         <Button
                             type="submit"

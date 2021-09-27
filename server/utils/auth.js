@@ -6,9 +6,9 @@ const freeOfAuth = ["/api/users/login", "/api/users", "/public"];
 
 export default async (req, res, next) => {
   if (!freeOfAuth.some((url) => url === req.baseUrl)) {
-    if (req.headers["authorization"]) {
+    if (req.headers["authorization"] || req.headers["Authorization"]) {
       jwt.verify(
-        req.headers["authorization"],
+        req.headers["authorization"] || req.headers["Authorization"],
         config.SECRET_KEY,
         {},
         async (err, decoded) => {

@@ -1,34 +1,30 @@
 import pleasuresTypes from "./types";
-import API from "../../utils/API";
 
+const getAll = (pleasures) => ({
+    type: pleasuresTypes.GOT_PLEASURES,
+    payload: pleasures
+})
 
-const getAll = () => (dispatch, getState) => {
-    API.get("/pleasures", getState().user.token).then((r) => {
-        dispatch({
-            type: pleasuresTypes.gotPleasures,
-            payload: r.data,
-        });
-    });
-};
+const savePleasure = (newPleasure) => ({
+    type: pleasuresTypes.CREATED_PLEASURE,
+    payload: newPleasure
+})
 
+const updatePleasure = (updatedPleasure) => ({
+    type: pleasuresTypes.UPDATED_PLEASURE,
+    payload: updatedPleasure
+})
 
-const save = (newPleasure, setSubmitting) => async (dispatch, getState) => {
-    const res = await API.save(
-        "/pleasures",
-        getState().user.token,
-        newPleasure
-    );
-    dispatch({
-        type: pleasuresTypes.createdPleasure,
-        payload: res.data,
-    });
-    setSubmitting(false);
-    dispatch(getAll());
-};
+const deletePleasure = (updatedPleasuresList) => ({
+    type: pleasuresTypes.DELETED_PLEASURE,
+    payload: updatedPleasuresList
+})
 
 const pleasureActions = {
     getAll,
-    save
+    savePleasure,
+    updatePleasure,
+    deletePleasure
 }
 
 export default pleasureActions;

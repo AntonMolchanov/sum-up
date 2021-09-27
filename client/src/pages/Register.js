@@ -16,8 +16,10 @@ import { Link } from "react-router-dom";
 const Register = ({ history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const handleSingIn = async (form, { setSubmitting }) => {
-    dispatch(userActions.register(form, setSubmitting, history.push));
+    dispatch(userActions.register(form, setSubmitting));
+      history.push('/login')
   };
 
   return (
@@ -73,7 +75,7 @@ const Register = ({ history }) => {
                 color="primary"
                 className={classes.submit}
               >
-                Sign In
+                Sign up
               </Button>
               <Grid container>
                 <Grid item>

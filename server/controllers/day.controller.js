@@ -26,7 +26,7 @@ const saveDay = async (req, res) => {
       "$gte": searchedDate,
       "$lt": nextDay
     }
-  });
+  }).exec();
   
   if (!dayFromDB) {
     const created = await DayModel.create({...req.body, owner: userId})

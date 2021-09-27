@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Redirect, Route } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
@@ -11,7 +11,8 @@ const ProtectedRoute = ({
   ...restProps
 }) => {
   const isAuth = useSelector(userSelectors.isAuth);
-
+  //   const isAuth = localStorage.getItem('token')
+    console.log(isAuth)
   return (
     <Route
       {...restProps}

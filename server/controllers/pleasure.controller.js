@@ -8,7 +8,7 @@ const getAll = async (req, res) => {
   const allPleasures = await PleasureModel.find({owner: userId});
   
   if (allPleasures) {
-    res.send(allPleasures.map(({title, description}) => ({title, description})));
+    res.send(allPleasures.map(({title, description,_id,owner}) => ({title, description,_id,owner})));
   } else {
     res.status(404);
     res.send({message: 'smth went wrong'})
@@ -17,10 +17,10 @@ const getAll = async (req, res) => {
 
 const save = async (req, res) => {
   const {_id: userId} = decode(req.headers["authorization"])
-  const pleasureToSave = req.body
+  const pleasureToSave = {...req.body, owner: userId}
   const pleasureFromDB = await PleasureModel.find({owner: userId, title: req.title})
   
-  if (!pleasureFromDB) {
+  if (!pleasureFromDB.length) {
     const saved = await PleasureModel.create(pleasureToSave)
     res.status(200).send(saved)
   }
@@ -33,14 +33,16 @@ const save = async (req, res) => {
 }
 
 const update = async (req, res) => {
-  const {_id: userId} = decode(req.headers["authorization"])
-  const pleasureFromDB = await PleasureModel.find({owner: userId, title: req.title})
-  
+  const pleasureFromDB = await PleasureModel.findById(req.params.id).exec()
+
   if (pleasureFromDB) {
-    const saved = await PleasureModel.update({...pleasureFromDB}, {
-      title: req.body.title,
-      description: req.body.description
-    })
+    const saved = await PleasureModel.findByIdAndUpdate({_id: pleasureFromDB._id},
+        {
+          title: req.body.title,
+          description: req.body.description
+        },
+        {new: true}
+    )
     res.status(200).send(saved)
   } else {
     res.status(404);
@@ -50,25 +52,17 @@ const update = async (req, res) => {
   }
 }
 
-const deleteOne = async (req, res) => {
-  const {_id: userId} = decode(req.headers["authorization"])
-  const pleasureFromDB = await PleasureModel.findOne({_id: req.params.id});
-  
-  if (pleasureFromDB && pleasureFromDB.owner === userId) {
-    const deleted = await PleasureModel.delete({_id: pleasureFromDB['_id']});
-    if (deleted.ok > 0) {
-      res.send(pleasureFromDB);
-    } else {
-      res.status(204);
-      res.send({message: 'something went wrong'});
-    }
-  } else {
+const deleteOne = async ({ params }, res) => {
+  const pleasureFromDB = await PleasureModel.findByIdAndDelete(params.id);
+  if (!pleasureFromDB) {
     res.status(404);
     res.send({
-      message: 'Pleasure not found'
-    })
+      message: "Pleasure not found",
+    });
+  } else {
+    res.send(pleasureFromDB);
   }
-}
+};
 
 
 const PleasuresController = {

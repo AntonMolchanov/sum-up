@@ -6,7 +6,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Page404 from "./Page404";
 import NewSituation from "../pages/NewSituation";
-import UnderConstruction from "../pages/UnderConstruction";
+import Pleasures from "../pages/Pleasures";
 import NewPleasure from "../pages/NewPleasure";
 
 const AppRoutes = () => {
@@ -16,7 +16,7 @@ const AppRoutes = () => {
       <ProtectedRoute path="/login" exact component={Login} />
       <ProtectedRoute path="/new" component={NewSituation} />
       <ProtectedRoute path="/newPleasure" component={NewPleasure} />
-      <ProtectedRoute path="/pleasures" component={UnderConstruction} />
+      <ProtectedRoute path="/pleasures" component={Pleasures} />
       <ProtectedRoute path="/register" exact component={Register} />
 
       <Route path="*" render={Page404} />

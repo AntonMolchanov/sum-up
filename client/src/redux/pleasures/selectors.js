@@ -1,5 +1,5 @@
 const allSelectors = {
-    all: (store) => store.pleasures.items,
+    all: (state) => state.pleasures,
 };
 
 export default allSelectors;

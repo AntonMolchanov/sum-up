@@ -68,6 +68,7 @@ const loginUser = async (req, res) => {
 
 const getProfile = async (req, res) => {
   const decoded = authHelpers.decode(req.headers["authorization"]);
+  console.log(decoded)
 
   const userFromDB = await UserModel.findOne({
     _id: decoded._id,

@@ -55,22 +55,30 @@ const createSituation = yup.object().shape({
         .min(10, "Minimal length is 10 characters"),
 });
 
+const editPleasure = yup.object().shape({
+    title: yup
+        .string("Should be a valid string"),
+    description: yup
+        .string("Should be a valid string")
+})
+
+
 const createPleasure = yup.object().shape({
-    pleasureName: yup
+    title: yup
         .string("Value must be a string")
         .min(10, "Minimal length is 10 characters")
         .required("This value is required"),
 
     description: yup
         .string("Value must be a string")
-        .min(10, "Minimal length is 10 characters")
 });
 
 const schemas = {
     login: loginSchema,
     register: registerSchema,
     createSituation,
-    createPleasure
+    createPleasure,
+    editPleasure
 };
 
 export default schemas;

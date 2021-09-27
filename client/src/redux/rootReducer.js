@@ -9,7 +9,7 @@ const appReducer = combineReducers({
   user,
   days,
   situations,
-  pleasures
+  ...pleasures
 });
 
 const rootReducer = (state, action) => {

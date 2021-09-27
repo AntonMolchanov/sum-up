@@ -3,7 +3,7 @@ import API from "../../utils/API";
 
 const getAll = () => (dispatch, getState) => {
   API.get("/situations", getState().user.token).then((r) => {
-    dispatch({
+   dispatch({
       type: types.FETCH_SITUATIONS,
       payload: r.data,
     });

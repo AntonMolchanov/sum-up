@@ -14,6 +14,7 @@ const registerUser = (user, setSubmitting) => async (dispatch) => {
 
 const saveUserAction = (user) => (dispatch) => {
   API.login(user).then((r) => {
+    localStorage.setItem('token', r.data.token)
     dispatch({
       type: types.SAVE_USER,
       payload: r.data,
